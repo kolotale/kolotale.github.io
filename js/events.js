@@ -16,6 +16,7 @@ Events.getValue = function(name, initVal) {
 
 Starters = [
 	function() {
+        return 0
 		if (Player.hormone < 70) return 0
 		if (Math.random() < 0.3) {
 			UI.notifyNeutral('Aimed to show your friends how you jump out of a moving train.')
@@ -27,6 +28,7 @@ Starters = [
 	},
 	
 	function() {
+        return 0
 		var msg = ['Started paying attention to other teens.', 'Visited a school party and danced.', 'Bed.']
 		if (Player.age < 10 || Player.age > 15) return 0
 		UI.notifyPositive(msg[Player.adolescenceStage])
@@ -36,6 +38,7 @@ Starters = [
 	},
 	
 	function() {
+        return 0
         if (Events.isSuspended('granny', 10)) return 0
 		
 		if (Player.age > Events.rnd(500)) {
@@ -53,6 +56,7 @@ Starters = [
 	},
 	
 	function() {
+        return 0
         if (Events.isSuspended('extortion', 1)) return 0
 
 		if (Player.age > 18 || Player.age < 6) return 0
@@ -73,6 +77,7 @@ Starters = [
 	},
     
 	function() {
+        return 0
         if (Math.random() > 0.1 / (Player.age + 1)) return 0 // replace with 0.1
         
         if (Events.isSuspended('medulloblastoma', 1)) return 0
@@ -133,9 +138,10 @@ Starters = [
 Events.parentDecline = function() {
     var v = Events.getValue('plagues', [])
     
-    plagues = ['The water of the nearby river changed into blood. The fish dies, the river stinks and people get sick when they drink its water.']
+    plagues = ['The water of the nearby river changed into blood. The fish died, the river stink and people got sick when they drunk its water.', 'The river teemed with frogs. They came up into houses and bedrooms and beds, into offices and into ovens and kneading troughs.']
     
     var pn = Events.rnd(plagues.length)
+    console.log(pn)
     
     if (!v[pn]) {
         UI.notifyNegative(plagues[pn])
