@@ -1,178 +1,98 @@
 Events = {}
-Followups = []
 
-Events.rnd = function(n) {
-	return Math.floor(n * Math.random())
-}
+Events.PARENTS = ['an old man and an old woman', 'two transgenders', 'two old school gamers', 'two old men', 'a giraffe and a hippopotamus', 'a physisist and a mathematician', 'two space marines', 'a knight and a priest']
+Events.PARENT = ['the old man', 'the stronger transgender', 'the strategy gamer', 'the manly man', 'the hippo', 'the theorist', 'the captain', 'the priest']
+Events.PARENT2 = ['the old woman', 'the prettier transgender', 'the arcade gamer', 'the feminine man', 'the giraffe', 'the applied science guy', 'the librarian', 'the knight']
 
-Events.arnd = function(a) {
-	return a[Events.rnd(a.length)]
-}
-
-Events.getValue = function(name, initVal) {
-    if (!(name in Player.props)) Player.props[name] = initVal
-    return Player.props[name]
-}
-
-Starters = [
-	function() {
-        return 0
-		if (Player.hormone < 70) return 0
-		if (Math.random() < 0.3) {
-			UI.notifyNeutral('Aimed to show your friends how you jump out of a moving train.')
-		} else {
-			UI.notifyNegative('Aimed to show your friends how you jump out of a moving train.')
-			Player.health -= 10
-		}
-		return 1
-	},
-	
-	function() {
-        return 0
-		var msg = ['Started paying attention to other teens.', 'Visited a school party and danced.', 'Bed.']
-		if (Player.age < 10 || Player.age > 15) return 0
-		UI.notifyPositive(msg[Player.adolescenceStage])
-		Player.hormone += 30
-		if (Player.adolescenceStage < msg.length - 1) Player.adolescenceStage++
-		return 1
-	},
-	
-	function() {
-        return 0
-        if (Events.isSuspended('granny', 10)) return 0
-		
-		if (Player.age > Events.rnd(500)) {
-			will = Player.props.granny * 10
-			UI.notifyNegative('Your loving granny Toriel left the world. Got $' + will + ' as her will.')
-			Player.savings += will
-			Player.props.granny = 0
-			return 1
-		} else {
-			UI.notifyPositive('Your loving granny Toriel sent you $' + Player.props.granny + '.')
-			Player.savings += Player.props.granny
-			Player.props.granny += 10
-		}
-		return 1
-	},
-	
-	function() {
-        return 0
-        if (Events.isSuspended('extortion', 1)) return 0
-
-		if (Player.age > 18 || Player.age < 6) return 0
-		
-		Player.props.extortion++
-
-		if (Math.random() < 0.5 || Player.props.extortion < 3 || Player.age < 12) {
-			UI.notifyNegative('Squall and Seifer stopped you and demanded your pocket money. You submitted.')
-			Player.savings = Player.savings * 0.99 - 10
-			if (Player.savings < 0) Player.savings = 0
-			return 1
-		}
-		
-		Player.props.extortion = 0
-		Player.savings *= 0.99
-		UI.notifyNegative(Events.arnd(['Squall attempted to extort money from you and you killed him with a lead pipe. Hiding the body costed you.', 'You bribed Selphie into killing Seifer. This costed you.', 'Squall was killed in a school gunfight.']))
-		return 1
-	},
+Events.K_STORY = ['On and on’ it rolled, and it met a Rabbit coming toward it.',
+    '“I’m going to eat you up, Kolobok!” called the Rabbit.',
+    '“Don’t do that, Fleet-Feet, let me sing you a song instead,” said Kolobok.',
+    '“All right, let’s hear it!”',
+    'Here it is! “I was scraped from the flour-box...”',
+    '“... And I’ll run away from you, this minute I will!”',
+    'And off it rolled and away.',
+    'By and by it met a Wolf coming toward it.',
+    '“I’m going to eat you up, Little Round Bun!” called the Wolf.',
+    '“Don’t do that, Brother Wolf, let me sing you a song instead.”',
+    '“All right, let’s hear it!”',
+    '“I was scraped from the flour-box...”',
+    '“... And I’ll run away from you, this minute I will!”',
+    'And away it rolled.',
+    'By and by it met a Bear coming toward it.',
+    '“I’m going to eat you up, Kolobok!” called the Bear.',
+    '“Don’t do that, Brother Bear, I’ll sing you a song instead!”',
+    '“All right, let’s hear it!”',
+    '“I was scraped from the flour-box...”',
+    '“... And I’ll run away from you, this minute I will!”',
+    'And away it rolled and away!',
+    'By and by it met a Fox coming toward it.',
+    '“I’m going to eat you up, Kolobok!” called the Fox.',
+    '"“Don’t do that, Sister Fox, I’ll sing you a song instead.”',
+    'All right, let’s hear it!',
+    '“I was scraped from the flour-box...”',
+    '“... And I’ll run away from you, this minute I will!”',
+    '“Sing some more, please, don’t stop!” the Fox said. “Hop onto my tongue, I can hear you better.”',
+    'Kolobok jumped onto the Fox’s tongue and began to sing.',
+    '“I was scraped from the flour-box...”',
+    'But before it could go on, the Fox opened her mouth and - snap! - she gobbled it up.']
     
-	function() {
-        return 0
-        if (Math.random() > 0.1 / (Player.age + 1)) return 0 // replace with 0.1
-        
-        if (Events.isSuspended('medulloblastoma', 1)) return 0
-        
-        UI.notifyPositive('Entered a state of almost constant happiness. Felt nearly saint.')
-        Player.props.medulloblastoma = 0
-        Player.props.medulloblastomaStage = 0
-        
-        Followups.push(function() {
-            switch (Player.props.medulloblastomaStage++) {
-                case 0:
-                    UI.notifyNegative('Morning headaches started.')
-                    Player.health -= 10
-                    break
-                case 1:
-                    UI.notifyNegative('Began losing a balance.')
-                    Player.health -= 10
-                    break
-                case 2:
-                    UI.notifyNegative('Started vomiting repeatedly.')
-                    Player.health -= 10
-                    break
-                case 3:
-                    UI.notifyNegative('Began stumbling.')
-                    Player.health -= 10
-                    break
-                case 4:
-                    UI.notifyNegative('Fallen for the first time.')
-                    Player.health -= 10
-                    break
-                case 5:
-                    UI.notifyNegative('Felt motor weakness.')
-                    Player.health -= 10
-                    break
-                case 6:
-                    UI.notifyNegative('Got vision and hearing disorders.')
-                    Player.health -= 10
-                    break
-                case 7:
-                    UI.notifyNegative('Felt nausea.')
-                    Player.health -= 10
-                    break
-                case 8:
-                    UI.notifyNegative('Lost facial sensory.')
-                    Player.health -= 10
-                    break
-                default:
-                    UI.notifyNegative('Felt really bad.')
-                    Player.health -= 100
-                    return 0
-            }            
-            return 1
-        })
-		return 1
-	},    
-]
-
-Events.parentDecline = function() {
-    var v = Events.getValue('plagues', [])
-    
-    plagues = ['The water of the nearby river changed into blood. The fish died, the river stink and people got sick when they drunk its water.', 'The river teemed with frogs. They came up into houses and bedrooms and beds, into offices and into ovens and kneading troughs.']
-    
-    var pn = Events.rnd(plagues.length)
-    console.log(pn)
-    
-    if (!v[pn]) {
-        UI.notifyNegative(plagues[pn])
-        v[pn] = 1
-        return 0
+class EventStr {
+    constructor(name, followup = null) {
+        this.name = name
+        this.followup = followup
     }
 
-    UI.notifyNeutral('And ' + Events.PARENTS[Player.props.parents] + ' kept getting poorer and poorer till there was nothing left to eat in the house, not even bread.')
-    return 1
+    fire() {
+        UI.notify(this.name)
+        return this.followup
+    }
 }
 
-Events.PARENTS = ['an old man and an old woman', 'two transgenders', 'two old school gamers', 'two old men', 'a giraffe and a hippopotamus']
+Events.plagueWater = new EventStr('[-]The water of the nearby river changed into blood. The fish died, the river stink and people got sick when they drunk its water.')
+
+Events.plagueFrogs = new EventStr('[-]The river teemed with frogs. They came up into houses and bedrooms and beds, into offices and into ovens and kneading troughs.')
+
+class EventGetPoor {
+    fire() {
+        UI.notify('And ' + Events.PARENTS[Player.props.parents] + ' kept getting poorer and poorer till there was nothing left to eat in the house, not even bread.')
+        return [new EventSaidParent()]
+    }
+}
+
+class EventSaidParent {
+    fire() {
+        UI.notify('After a while ' + Events.PARENT[Player.props.parents] + ' said, “Do bake us a bun, old friend! If you scrape out the flour-box and sweep out the bin, you’ll have enough flour.”')
+        return [new EventScrapedParent()]
+    }
+}
+
+class EventScrapedParent {
+    fire() {
+        UI.notify('[+]So ' + Events.PARENT2[Player.props.parents] + ' scraped out the flour-box and swept out the bin, she made some dough and she shaped a little round bun out of it. They lit the oven, baked the bun and put it on the window sill to cool. But the bun, who proclaimed itself as “Kolobok”, jumped out of the window and onto the bench outside, and from the bench onto the ground, and away it rolled along the road!')
+        return [new EventChain([...Events.K_STORY, new EventStr('Finished.')])]
+    }    
+}
+
+class EventChain {
+    constructor(chain) {
+        this.chain = chain
+        this.msg = chain[0]
+        this.chain.splice(0, 1)
+        this.index = 0
+    }
+
+    fire() {
+        console.log(this.msg)
+        UI.notify(this.msg)
+        return [(this.chain.length > 1) ? new EventChain(this.chain) : this.chain]
+    }
+}
 
 Events.init = function() {
-    Player.props.parents = Events.rnd(Events.PARENTS.length)
-    UI.notifyNeutral('Once upon a time there lived ' + Events.PARENTS[Player.props.parents] + ' who were very poor and had nothing at all to their name. <a>Restart</a>?')
-    UI.notifyNeutral('This was a hard year.')
+    Player.props.parents = Game.getRnd(Events.PARENTS.length)
+    UI.notify('Once upon a time there lived ' + Events.PARENTS[Player.props.parents] + ' who were very poor and had nothing at all to their name. <a>Restart</a>?')
+    UI.notify('This was a hard year.')
     
-    Followups = [Events.parentDecline]
-}
-
-Events.generate = function() {
-	if (Math.random() < 0.1) return 0
-   
-    
-	if (Followups.length) {
-        var index = Events.rnd(Followups.length)
-		if (!Followups[index]()) Followups.splice(index, 1)
-		return 1
-	}
-	if (Math.random() < 0.99) return 0
-
-	return this.arnd(Starters)()
+    Game.followups = [new EventGetPoor()]
+    Game.ambient = [Events.plagueWater, Events.plagueFrogs]
 }
