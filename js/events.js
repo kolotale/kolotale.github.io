@@ -69,7 +69,7 @@ class EventSaidParent {
 class EventScrapedParent {
     fire() {
         UI.notify('[+]So ' + Events.PARENT2[Player.props.parents] + ' scraped out the flour-box and swept out the bin, she made some dough and she shaped a little round bun out of it. They lit the oven, baked the bun and put it on the window sill to cool. But the bun, who proclaimed itself as “Kolobok”, jumped out of the window and onto the bench outside, and from the bench onto the ground, and away it rolled along the road!')
-        return [new EventChain([...Events.K_STORY, new EventStr('Finished.')])]
+        return [new EventChain([...Events.K_STORY, new EventEnd()])]
     }    
 }
 
@@ -82,10 +82,17 @@ class EventChain {
     }
 
     fire() {
-        console.log(this.msg)
         UI.notify(this.msg)
-        return [(this.chain.length > 1) ? new EventChain(this.chain) : this.chain]
+        return [(this.chain.length > 1) ? new EventChain(this.chain) : this.chain[0]]
     }
+}
+
+class EventEnd {
+    fire() {
+        Player.weight = 0
+        UI.notify('[-] Ouch.')
+        return null
+    }    
 }
 
 Events.init = function() {
