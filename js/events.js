@@ -1,8 +1,8 @@
 Events = {}
 
-Events.PARENTS = ['an old man and an old woman', 'two transgenders', 'two old school gamers', 'two old men', 'a giraffe and a hippopotamus', 'a physisist and a mathematician', 'two space marines', 'a knight and a priest']
+Events.PARENTS = ['an old man and an old woman', 'two transgenders', 'two old school gamers', 'two old men', 'a giraffe and a hippopotamus', 'a physisist and a mathematician', 'two spacefarers', 'a knight and a priest']
 Events.PARENT = ['the old man', 'the stronger transgender', 'the strategy gamer', 'the manly man', 'the hippo', 'the theorist', 'the captain', 'the priest']
-Events.PARENT2 = ['the old woman', 'the prettier transgender', 'the arcade gamer', 'the feminine man', 'the giraffe', 'the applied science guy', 'the librarian', 'the knight']
+Events.PARENT2 = ['the old woman', 'the prettier transgender', 'the arcade gamer', 'the feminine man', 'the giraffe', 'the applied science guy', 'the knowledge keeper', 'the knight']
 
 Events.K_STORY = ['On and on’ it rolled, and it met a Rabbit coming toward it.',
     '“I’m going to eat you up, Kolobok!” called the Rabbit.',

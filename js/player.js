@@ -1,6 +1,6 @@
 Player = {}
 
-Player.AGE_STEP = 1.0 / 3600
+Player.AGE_FACTOR = 0.01
 
 Player.init = function() {
 	this.age = 0
@@ -11,9 +11,9 @@ Player.init = function() {
 }
 
 Player.update = function() {
-	this.age += this.AGE_STEP
+	this.age += 1
 
-	UI.setVal('age', this.age.toFixed(2) + '&nbsp;days')
+	UI.setVal('age', (this.age * Player.AGE_FACTOR).toFixed(2) + '&nbsp;days')
 	UI.setVal('mood', this.mood)
     UI.setVal('weight', this.weight.toFixed(2) + '&nbsp;kg')
 }

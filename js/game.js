@@ -1,6 +1,6 @@
 Game = {}
 
-Game.SLOW_TIME_MS = 100
+Game.SLOW_TIME_MS = 1000
 Game.FAST_TIME_MS = 4
 
 function updateGame() {	
@@ -74,7 +74,7 @@ Game.update = function() {
     if (Player.weight <= 0) {
         UI.notify('[-]And our hero is no more. This is how the tale ends. <a>Restart</a>?')
         if (Game.score < Player.age) {
-            UI.notify('[+]Broke the lifespan record of ' + Game.score.toFixed(2) + ' days.')
+            UI.notify('[+]Broke the lifespan record of ' + (Game.score * Player.AGE_FACTOR).toFixed(2) + ' days.')
             Game.score = Player.age
         }
 		this.active = false
