@@ -48,9 +48,15 @@ class EventStr {
     }
 }
 
-Events.plagueWater = new EventStr('[-]The water of the nearby river changed into blood. The fish died, the river stink and people got sick when they drunk its water.')
+Events.plagueWater = new EventStr('[-]The water of the nearby river changed into blood. The fish died, the river stank and people got sick when they drunk its water.')
 
 Events.plagueFrogs = new EventStr('[-]The river teemed with frogs. They came up into houses and bedrooms and beds, into offices and into ovens and kneading troughs.')
+
+Events.plagueLice = new EventStr('[-]All the dust throughout the land became lice. Lice came upon men and animals.')
+
+Events.plagueSwarm = new EventStr('[-]A swarm came harming crops.')
+
+Events.plagueLivestock = new EventStr('[-]A wind brought a terrible plague on livestock in the field on horses and donkeys and camels and on cattle and sheep and goats.')   
 
 class EventGetPoor {
     fire() {
@@ -101,5 +107,5 @@ Events.init = function() {
     UI.notify('This was a hard year.')
     
     Game.followups = [new EventGetPoor()]
-    Game.ambient = [Events.plagueWater, Events.plagueFrogs]
+    Game.ambient = [Events.plagueWater, Events.plagueFrogs, Events.plagueLice, Events.plagueSwarm, Events.plagueLivestock]
 }
