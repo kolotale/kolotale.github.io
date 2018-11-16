@@ -32,3 +32,17 @@ UI.setVal = function(name, val) {
 UI.restart = function() {
 	Game.restart()
 }
+
+UI.soundState = ['&#128263;', '&#128266;', '&#9835;']
+
+UI.showSoundState = function() {
+    document.getElementById('sound-button').innerHTML = UI.soundState[Sound.state]
+}
+
+UI.init = function() {
+    document.getElementById('sound-button').addEventListener('click', Sound.controlSound)
+    UI.showSoundState()
+    Game.init()
+}
+
+document.addEventListener("DOMContentLoaded", UI.init)

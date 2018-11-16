@@ -54,6 +54,11 @@ button {
   margin: 5px;
 }
 
+.sq {
+    height: 3em;
+    width: 3em;
+}
+
 .update-positive {
   color: #669966;
 }

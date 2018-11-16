@@ -81,4 +81,3 @@ Game.update = function() {
     }
 }
 
-Game.init()
