@@ -123,4 +123,5 @@ Events.init = function() {
     
     Game.followups = [new EventGetPoor()]
     Game.ambient = [Events.plagueWater, Events.plagueFrogs, Events.plagueLice, Events.plagueSwarm, Events.plagueLivestock]
+    Game.encounters = EncountersList.slice()
 }
