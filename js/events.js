@@ -70,9 +70,26 @@ class EventChain {
 }
 
 class EventEncounter {
+    constructor() {
+        this.stage = 0
+    }
+    
     fire() {
-        UI.notify('On and on’ it rolled, and it met a Rabbit coming toward it.')
-        return null
+        switch (this.stage) {
+            case 0:
+                this.encounter = Game.getAndDelRndElem(Game.encounters)
+                var name = this.encounter.name
+                UI.notify(Game.getRndElem([
+                    `On and on’ it rolled, and it met a ${name} coming toward it.`,
+                    `By and by it met a ${name} coming toward it.`]))
+                this.stage = 1
+                return [this]
+            case 1:
+                UI.notify('stage = 1')
+                return null
+            default:
+                return null
+        }
     }    
 }
 

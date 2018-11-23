@@ -22,7 +22,7 @@ Game.getRnd = function(n) {
 }
 
 Game.getRndElem = function(a) {
-	return a[Game.rnd(a.length)]
+	return a[Game.getRnd(a.length)]
 }
 
 Game.getAndDelRndElem = function(a) {
