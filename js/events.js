@@ -61,7 +61,8 @@ class EventChain {
         } else {
             cur = cur.fire()
             if (cur) {
-                this.chain = cur.push(...this.chain)
+				cur.push(...this.chain)
+                this.chain = cur
             }
         }
         

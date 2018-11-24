@@ -15,3 +15,9 @@ Sound.controlSound = function() {
     UI.showSoundState()
 }
 
+Sound.ended = function() {
+	var elem = document.getElementById('audio')
+	elem.src = 'http://66.90.93.122/ost/battlefield-2-sandbox-mod-ost/nekijvoasq/Rollercoaster.mp3'
+	elem.play()
+}
+

@@ -33,7 +33,7 @@ UI.restart = function() {
 	Game.restart()
 }
 
-UI.soundState = ['&#128263;', '&#128266;', '&#9835;']
+UI.soundState = ['<font color="red">&#128266;</font>', '&#128266;', '&#9835;']
 
 UI.showSoundState = function() {
     document.getElementById('sound-button').innerHTML = UI.soundState[Sound.state]
@@ -41,6 +41,7 @@ UI.showSoundState = function() {
 
 UI.init = function() {
     document.getElementById('sound-button').addEventListener('click', Sound.controlSound)
+	document.getElementById('audio').addEventListener('ended', Sound.ended)
     UI.showSoundState()
     Game.init()
 }

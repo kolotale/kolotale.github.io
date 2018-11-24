@@ -49,7 +49,7 @@ Game.getValue = function(name, initVal) {
 Game.generate = function() {
 	if (Math.random() < 0.1) return 0
     
-    if (Math.random() < 0.5) Game.fireRndEvent(Game.ambient)       
+    if (Math.random() < 0.5) Game.fireRndEvent(Game.ambient)
     Game.fireRndEvent(Game.followups)
 	return 1
 }
