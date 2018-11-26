@@ -7,7 +7,7 @@ Player.init = function() {
 	this.mood = 'Cheerful'
     this.weight = 3 + Math.random() * 2
     this.props = {}
-    Events.init()
+    this.props.inventory = []
 }
 
 Player.update = function() {

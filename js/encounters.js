@@ -60,6 +60,36 @@ class EncounterMonster extends Encounter {
     }
 }
 
+class EncounterItem extends Encounter {
+    constructor(generalName, name) {
+        super()
+        this.generalName = generalName
+        this.name = name
+    }
+    
+    fire() {
+        var generalName = this.generalName
+        var name = this.name
+
+        switch (this.stage) {
+            case 0:
+                UI.notify(Game.getRndElem([
+                    `Kolobok noticed something shiny and precious along his path.`]))
+                this.stage = 1
+                break
+            default:
+                UI.notify(Game.getRndElem([
+                    `[+]Our hero searched and found a nice looking ${generalName}.`]))
+                Player.props.inventory.push(this)
+                this.stage = 0
+                return null
+        }
+        return this
+    }
+}
+
 new EncounterMonster('Rabbit', 'Fleet-Feet')
 new EncounterMonster('Wolf', 'Brother Wolf')
 new EncounterMonster('Bear', 'Brother Bear')
+
+new EncounterItem('ring', 'glitter-stone ring')

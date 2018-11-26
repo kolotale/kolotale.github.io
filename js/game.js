@@ -35,6 +35,7 @@ Game.getAndDelRndElem = function(a) {
 
 Game.fireRndEvent = function(a) {
     var res = Game.getAndDelRndElem(a)
+
     if (!res) return null
     res = res.fire()
     if (res) a.push(...res)
@@ -58,6 +59,7 @@ Game.restart = function() {
     Game.followups = []
     Game.ambient = []
     Player.init()
+    Events.init()
 	this.active = true
 }
 
