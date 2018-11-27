@@ -1,31 +1,30 @@
-EncountersList = []
+EncounterList = []
 
-class Encounter {
+class Monster {
     constructor(generalName, name) {
-        EncountersList.push(this)
+        this.generalName = generalName
+        this.name = name
+        EncounterList.push(this)
     }
     
     init() {
         this.stage = 0
     }
-}
 
-class EncounterMonster extends Encounter {
-    constructor(generalName, name) {
-        super()
-        this.generalName = generalName
-        this.name = name
-    }
-    
     fire() {
         var generalName = this.generalName
         var name = this.name
 
         switch (this.stage) {
             case 0:
-                UI.notify(Game.getRndElem([
-                    `On and on’ it rolled, and it met a ${generalName} coming toward it.`,
-                    `By and by it met a ${generalName} coming toward it.`]))
+                if (Player.props.inventory.indexOf(Items.glitterStoneRing) >= 0) {
+                    UI.notify(`All of a sudden the glitter-stone ring rang. “The monster alarm,” thought Kolobok. “Not now.”`)
+                    UI.notify(`A ${generalName} was coming.`)
+                } else {            
+                    UI.notify(Game.getRndElem([
+                        `On and on’ it rolled, and it met a ${generalName} coming toward it.`,
+                        `By and by it met a ${generalName} coming toward it.`]))
+                }
                 this.stage = 1
                 break
             case 1:
@@ -60,36 +59,6 @@ class EncounterMonster extends Encounter {
     }
 }
 
-class EncounterItem extends Encounter {
-    constructor(generalName, name) {
-        super()
-        this.generalName = generalName
-        this.name = name
-    }
-    
-    fire() {
-        var generalName = this.generalName
-        var name = this.name
-
-        switch (this.stage) {
-            case 0:
-                UI.notify(Game.getRndElem([
-                    `Kolobok noticed something shiny and precious along his path.`]))
-                this.stage = 1
-                break
-            default:
-                UI.notify(Game.getRndElem([
-                    `[+]Our hero searched and found a nice looking ${generalName}.`]))
-                Player.props.inventory.push(this)
-                this.stage = 0
-                return null
-        }
-        return this
-    }
-}
-
-new EncounterMonster('Rabbit', 'Fleet-Feet')
-new EncounterMonster('Wolf', 'Brother Wolf')
-new EncounterMonster('Bear', 'Brother Bear')
-
-new EncounterItem('ring', 'glitter-stone ring')
+new Monster('Rabbit', 'Fleet-Feet')
+new Monster('Wolf', 'Brother Wolf')
+new Monster('Bear', 'Brother Bear')
